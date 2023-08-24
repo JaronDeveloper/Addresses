@@ -1,34 +1,42 @@
-#include <iostream>
 #include <fstream>
 
 int main() {
-	std::string city; std::string street; int numberHouse; int numberApartment;
-	int amount,counter=0;
+	std::string* city; std::string* street; int* numberHouse; int* numberApartment;
+	int sizeAmount,counter=0;
 	std::ifstream finIn("in.txt");
-	finIn >> amount;
-	std::ofstream finOut("out.txt");
-    finOut << amount;
-	finOut << std::endl;
+	finIn >> sizeAmount;
+	city = new std::string[sizeAmount];
+	street = new std::string[sizeAmount];
+	numberHouse = new int[sizeAmount];
+	numberApartment = new int[sizeAmount];
 
-	while (amount > counter)
+	while (sizeAmount > counter)
 	{
-		finIn >> city;
-		finIn >> street;
-		finIn >> numberHouse;
-		finIn >> numberApartment;
+		finIn >> city[counter];
+		finIn >> street[counter];
+		finIn >> numberHouse[counter];
+		finIn >> numberApartment[counter];
 
-		finOut << city;
-		finOut << " ";
-		finOut << street;
-		finOut << " ";
-		finOut << numberHouse;
-		finOut << " ";
-		finOut << numberApartment;
-		finOut << std :: endl;
 		counter++;
 	}
-	finIn.close();
+
+    finIn.close();
+	std::ofstream finOut("out.txt");
+	finOut << sizeAmount;
+	finOut << std::endl;
+
+	for (int i = sizeAmount-1;i >= 0;i--) {
+		finOut << city[i];
+		finOut << " ";
+		finOut << street[i];
+		finOut << " ";
+		finOut << numberHouse[i];
+		finOut << " ";
+		finOut << numberApartment[i];
+		finOut << std :: endl;		
+	}	
 	finOut.close();
+	delete[] city, street, numberHouse, numberApartment;
 
 	return 0;
 }
